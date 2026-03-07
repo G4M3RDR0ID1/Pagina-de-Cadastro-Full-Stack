@@ -14,9 +14,6 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController{
 
-    @Autowired
-    private IUsuario dao;
-
     private UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService ) {
@@ -38,15 +35,14 @@ public class UsuarioController{
 
     //Metodo Update
     @PutMapping
-    public ResponseEntity<Usuario> atualizarUsuario(@RequestBody Usuario usuario){
-        Usuario usuarioNovo = dao.save(usuario);
-        return ResponseEntity.status(201).body(usuarioNovo);
+    public ResponseEntity<Usuario> editarUsuario(@RequestBody Usuario usuario){
+        return ResponseEntity.status(201).body(usuarioService.editarUsuario(usuario));
     }
 
     //Metodo Delete tem que passar um parametro para excluir. Nesse caso e o ID.
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarUsuario(@PathVariable Integer id){
-        dao.deleteById(id);
+        usuarioService.excluirUsuario(id);
         return ResponseEntity.status(204).build();
     }
 }
