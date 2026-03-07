@@ -3,12 +3,14 @@ package br.com.criandoapi.projeto.controller;
 import br.com.criandoapi.projeto.DAO.IUsuario;
 import br.com.criandoapi.projeto.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/usuarios")
 public class UsuarioController{
 
@@ -17,30 +19,30 @@ public class UsuarioController{
 
     //Metodo Get
     @GetMapping
-    public List<Usuario> listaUsuarios(){
-        return (List<Usuario>) dao.findAll();
+    public ResponseEntity<List<Usuario>> listaUsuarios(){
+        List<Usuario> lista = (List<Usuario>) dao.findAll();
+        return ResponseEntity.status(200).body(lista);
     }
 
 
     //Metodo Post
     @PostMapping
-    public Usuario criarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
         Usuario usuarioNovo = dao.save(usuario);
-        return usuarioNovo;
+        return ResponseEntity.status(201).body(usuarioNovo);
     }
 
     //Metodo Update
     @PutMapping
-    public Usuario atualizarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> atualizarUsuario(@RequestBody Usuario usuario){
         Usuario usuarioNovo = dao.save(usuario);
-        return usuarioNovo;
+        return ResponseEntity.status(201).body(usuarioNovo);
     }
 
     //Metodo Delete tem que passar um parametro para excluir. Nesse caso e o ID.
     @DeleteMapping("/{id}")
-    public Optional<Usuario> deletarUsuario(@PathVariable Integer id){
-        Optional<Usuario> usuario = dao.findById(id);
+    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id){
         dao.deleteById(id);
-        return usuario;
+        return ResponseEntity.status(204).build();
     }
 }
