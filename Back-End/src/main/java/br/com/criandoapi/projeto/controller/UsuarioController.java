@@ -4,6 +4,7 @@ import br.com.criandoapi.projeto.repository.IUsuario;
 import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class UsuarioController{
     //Metodo Update
     @PutMapping
     public ResponseEntity<Usuario> editarUsuario(@RequestBody Usuario usuario){
-        return ResponseEntity.status(201).body(usuarioService.editarUsuario(usuario));
+        return ResponseEntity.status(200).body(usuarioService.editarUsuario(usuario));
     }
 
     //Metodo Delete tem que passar um parametro para excluir. Nesse caso e o ID.
@@ -44,5 +45,14 @@ public class UsuarioController{
     public ResponseEntity<?> deletarUsuario(@PathVariable Integer id){
         usuarioService.excluirUsuario(id);
         return ResponseEntity.status(204).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Usuario> validarSenha(@RequestBody Usuario usuario){
+        boolean valid = usuarioService.validarSenha(usuario);
+        if(!valid){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.status(200).build();
     }
 }
