@@ -1,10 +1,17 @@
 package br.com.criandoapi.projeto.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+//Anotação utilizada para utilizar get e set sem a necessidade de estarem no codigo.
+@Data
+
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
+
+    //Classe que representa o Objeto usuario, e tambem a tabela Usuario no banco de dados mysql.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,44 +30,4 @@ public class Usuario {
     @Column(name = "telefone", length = 15, nullable = true)
     private String telefone;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 }
