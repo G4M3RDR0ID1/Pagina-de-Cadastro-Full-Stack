@@ -1,22 +1,17 @@
-export const metadata = {
-  title: "Projeto Full Stack",
-  description: "Next.js + Spring Boot API"
-}
+import { AuthProvider } from "@/context/AuthContext"
 
 export default function RootLayout({ children }) {
-
   return (
-
     <html lang="pt-BR">
-
       <body>
 
-        {children}
+        <AuthProvider>
+
+            {children}
+
+        </AuthProvider>
 
       </body>
-
     </html>
-
   )
-
 }

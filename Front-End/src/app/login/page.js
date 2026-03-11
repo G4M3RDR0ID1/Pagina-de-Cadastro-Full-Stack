@@ -1,33 +1,40 @@
 "use client"
 
 import { useState } from "react"
-import { API_URL } from "@/services/api"
+import { api } from "@/services/api"
+import { useAuth } from "@/context/AuthContext"
 
 export default function Login(){
+
+    const { login } = useAuth()
 
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState("")
 
-    async function login(e){
+    const logar = async (event) => {
 
-        e.preventDefault()
+        event.preventDefault()
 
-        const res = await fetch(`${API_URL}/usuarios/login`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
+        try{
+
+            const res = await api.post("/usuarios/login",{
                 email,
                 senha
             })
-        })
 
-        const data = await res.json()
+            const token = res.data.token
 
-        localStorage.setItem("token",data.token)
+            login(token)
 
-        window.location.href="/dashboard"
+            alert("Login realizado!")
+
+        }catch(err){
+
+            console.log(err)
+            alert("Erro no login")
+
+        }
+
     }
 
     return(
@@ -36,20 +43,25 @@ export default function Login(){
 
             <h1>Login</h1>
 
-            <form onSubmit={login}>
+            <form onSubmit={logar}>
 
-                <input placeholder="Email"
-                onChange={(e)=>setEmail(e.target.value)} />
+                <input
+                    placeholder="Email"
+                    onChange={(e)=>setEmail(e.target.value)}
+                />
 
-                <input type="password"
-                placeholder="Senha"
-                onChange={(e)=>setSenha(e.target.value)} />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    onChange={(e)=>setSenha(e.target.value)}
+                />
 
-                <button>Entrar</button>
+                <button type="submit">Entrar</button>
 
             </form>
 
         </div>
 
     )
+
 }
