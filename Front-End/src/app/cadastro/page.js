@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { API_URL } from "@/services/api"
+import { api } from "@/services/api"
 
 export default function Cadastro(){
 
@@ -10,28 +10,30 @@ export default function Cadastro(){
     const [senha,setSenha] = useState("")
     const [telefone,setTelefone] = useState("")
 
-    async function cadastrar(e){
+    const cadastrar = async (event) => {
 
-        e.preventDefault()
+        event.preventDefault()
 
-        const res = await fetch(`${API_URL}/usuarios`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
+        try {
+
+            const res = await api.post("/usuarios",{
                 nome,
                 email,
                 senha,
                 telefone
             })
-        })
 
-        const data = await res.json()
+            console.log(res.data)
 
-        console.log(data)
+            alert("Usuário cadastrado com sucesso!")
 
-        alert("Usuário cadastrado!")
+        } catch (err) {
+
+            console.log(err)
+            alert("Erro ao cadastrar usuário")
+
+        }
+
     }
 
     return(
@@ -42,20 +44,28 @@ export default function Cadastro(){
 
             <form onSubmit={cadastrar}>
 
-                <input placeholder="Nome"
-                onChange={(e)=>setNome(e.target.value)} />
+                <input
+                    placeholder="Nome"
+                    onChange={(e)=>setNome(e.target.value)}
+                />
 
-                <input placeholder="Email"
-                onChange={(e)=>setEmail(e.target.value)} />
+                <input
+                    placeholder="Email"
+                    onChange={(e)=>setEmail(e.target.value)}
+                />
 
-                <input type="password"
-                placeholder="Senha"
-                onChange={(e)=>setSenha(e.target.value)} />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    onChange={(e)=>setSenha(e.target.value)}
+                />
 
-                <input placeholder="Telefone"
-                onChange={(e)=>setTelefone(e.target.value)} />
+                <input
+                    placeholder="Telefone"
+                    onChange={(e)=>setTelefone(e.target.value)}
+                />
 
-                <button>Cadastrar</button>
+                <button type="submit">Cadastrar</button>
 
             </form>
 
