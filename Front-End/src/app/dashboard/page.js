@@ -9,9 +9,11 @@ export default function Dashboard(){
 
     const [usuarios,setUsuarios] = useState([])
 
-    const { token } = useAuth()
+    const { token, logout } = useAuth()
 
     const router = useRouter()
+
+    
 
     useEffect(()=>{
 
@@ -20,11 +22,7 @@ export default function Dashboard(){
             return
         }
 
-        api.get("/usuarios",{
-            headers:{
-                Authorization: token
-            }
-        })
+        api.get("/usuarios")
         .then(res => setUsuarios(res.data))
         .catch(err => console.log(err))
 
@@ -35,6 +33,13 @@ export default function Dashboard(){
         <div>
 
             <h1>Usuários</h1>
+
+            <button onClick={()=>{
+                logout()
+                router.push("/login")
+            }}>
+                Logout
+            </button>
 
             {usuarios.map(u=>(
                 <p key={u.id}>
