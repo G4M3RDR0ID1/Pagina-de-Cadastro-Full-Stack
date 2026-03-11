@@ -1,7 +1,11 @@
 package br.com.criandoapi.projeto.service;
 
+import br.com.criandoapi.projeto.dto.UsuarioDTO;
+import br.com.criandoapi.projeto.dto.UsuarioResponseDTO;
 import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.repository.IUsuario;
+import br.com.criandoapi.projeto.security.Token;
+import br.com.criandoapi.projeto.security.TokenUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,15 +17,12 @@ public class UsuarioService {
 
     private IUsuario repository;
     private PasswordEncoder passwordEncoder;
+    private TokenUtil tokenUtil;
 
-    public UsuarioService(IUsuario repository) {
+    public UsuarioService(IUsuario repository, TokenUtil tokenUtil, PasswordEncoder passwordEncoder) {
         this.repository = repository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
-
-    public List<Usuario> listarUSuarios() {
-        List<Usuario> lista = repository.findAll();
-        return lista;
+        this.tokenUtil = tokenUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario criarUsuario(Usuario usuario) {
@@ -47,5 +48,36 @@ public class UsuarioService {
         String senha = repository.getById(usuario.getId()).getSenha();
         boolean valid = passwordEncoder.matches(usuario.getSenha(), senha);
         return valid;
+    }
+
+    public Token gerarToken(UsuarioDTO usuario) {
+
+        Usuario user = repository.findByEmail(usuario.getEmail());
+
+        if (user != null) {
+
+            boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getSenha());
+
+            if (valid) {
+                return new Token(tokenUtil.createToken(user));
+            }
+        }
+
+        return null;
+    }
+
+    public List<UsuarioResponseDTO> listarUsuarios() {
+
+        List<Usuario> usuarios = repository.findAll();
+
+        return usuarios.stream().map(usuario -> {
+            UsuarioResponseDTO dto = new UsuarioResponseDTO();
+            dto.setId(usuario.getId());
+            dto.setNome(usuario.getNome());
+            dto.setEmail(usuario.getEmail());
+            dto.setTelefone(usuario.getTelefone());
+            return dto;
+        }).toList();
+
     }
 }

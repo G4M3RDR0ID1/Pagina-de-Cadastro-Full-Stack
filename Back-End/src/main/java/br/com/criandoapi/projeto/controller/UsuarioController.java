@@ -1,10 +1,11 @@
 package br.com.criandoapi.projeto.controller;
 
-import br.com.criandoapi.projeto.repository.IUsuario;
+import br.com.criandoapi.projeto.dto.UsuarioDTO;
+import br.com.criandoapi.projeto.dto.UsuarioResponseDTO;
 import br.com.criandoapi.projeto.model.Usuario;
+import br.com.criandoapi.projeto.security.Token;
 import br.com.criandoapi.projeto.service.UsuarioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,66 +14,69 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
-public class UsuarioController{
+public class UsuarioController {
 
     private UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService ) {
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
     //Metodo Get
     @GetMapping
-    public ResponseEntity<List<Usuario>> listaUsuarios(){
-        return ResponseEntity.status(200).body(usuarioService.listarUSuarios());
+    public ResponseEntity<List<UsuarioResponseDTO>> listaUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarUsuarios());
     }
 
 
     //Metodo Post
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody Usuario usuario){
-        return ResponseEntity.status(201).body(usuarioService.criarUsuario(usuario));
+    public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody Usuario usuario) {
+
+        Usuario user = usuarioService.criarUsuario(usuario);
+
+        UsuarioResponseDTO dto = new UsuarioResponseDTO();
+        dto.setId(user.getId());
+        dto.setNome(user.getNome());
+        dto.setEmail(user.getEmail());
+        dto.setTelefone(user.getTelefone());
+
+        return ResponseEntity.status(201).body(dto);
     }
 
     //Metodo Update
     @PutMapping
-    public ResponseEntity<Usuario> editarUsuario(@Valid @RequestBody Usuario usuario){
-        return ResponseEntity.status(200).body(usuarioService.editarUsuario(usuario));
+    public ResponseEntity<UsuarioResponseDTO> editarUsuario(@Valid @RequestBody Usuario usuario) {
+
+        Usuario user = usuarioService.editarUsuario(usuario);
+
+        UsuarioResponseDTO dto = new UsuarioResponseDTO();
+        dto.setId(user.getId());
+        dto.setNome(user.getNome());
+        dto.setEmail(user.getEmail());
+        dto.setTelefone(user.getTelefone());
+
+        return ResponseEntity.ok(dto);
     }
 
     //Metodo Delete tem que passar um parametro para excluir. Nesse caso e o ID.
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id){
+    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id) {
         usuarioService.excluirUsuario(id);
         return ResponseEntity.status(204).build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> validarSenha(@RequestBody Usuario usuario){
-        boolean valid = usuarioService.validarSenha(usuario);
-        if(!valid){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<Token> logar(@RequestBody UsuarioDTO usuario) {
+        Token token = usuarioService.gerarToken(usuario);
+        if (token != null) {
+            return ResponseEntity.ok(token);
         }
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(403).build();
     }
 
-    //Metodo responsavel por interceptar a Bad_Request e mostrar os erros (ex: "A senha e obrigatoria")
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationException(MethodArgumentNotValidException exception){
-        Map<String, String> errors = new HashMap<>();
-
-        exception.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError)  error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        return errors;
-    }
 }

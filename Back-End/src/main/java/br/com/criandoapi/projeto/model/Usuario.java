@@ -6,8 +6,6 @@ import lombok.Data;
 
 //Anotação utilizada para utilizar get e set sem a necessidade de estarem no codigo.
 @Data
-
-
 @Entity
 @Table(name = "usuario")
 public class Usuario {
