@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { api } from "@/services/api"
 import { useAuth } from "@/context/AuthContext"
+import { useRouter } from "next/navigation"
 
 export default function Login(){
 
@@ -10,8 +11,9 @@ export default function Login(){
 
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState("")
+    const router = useRouter()
 
-    const logar = async (event) => {
+    const logar = async (event) => { 
 
         event.preventDefault()
 
@@ -26,7 +28,7 @@ export default function Login(){
 
             login(token)
 
-            alert("Login realizado!")
+            router.push("/dashboard")
 
         }catch(err){
 
