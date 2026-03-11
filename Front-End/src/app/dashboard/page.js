@@ -1,25 +1,34 @@
 "use client"
 
-import { useEffect,useState } from "react"
-import { API_URL } from "@/services/api"
+import { useEffect, useState } from "react"
+import { api } from "@/services/api"
+import { useAuth } from "@/context/AuthContext"
+import { useRouter } from "next/navigation"
 
 export default function Dashboard(){
 
     const [usuarios,setUsuarios] = useState([])
 
+    const { token } = useAuth()
+
+    const router = useRouter()
+
     useEffect(()=>{
 
-        const token = localStorage.getItem("token")
+        if(!token){
+            router.push("/login")
+            return
+        }
 
-        fetch(`${API_URL}/usuarios`,{
+        api.get("/usuarios",{
             headers:{
                 Authorization: token
             }
         })
-        .then(res=>res.json())
-        .then(data=>setUsuarios(data))
+        .then(res => setUsuarios(res.data))
+        .catch(err => console.log(err))
 
-    },[])
+    },[token, router])
 
     return(
 
