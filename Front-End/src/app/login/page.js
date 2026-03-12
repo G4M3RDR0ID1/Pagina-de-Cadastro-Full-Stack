@@ -13,9 +13,15 @@ export default function Login(){
     const [senha,setSenha] = useState("")
     const router = useRouter()
 
-    const logar = async (event) => { 
+    const logar = async (event) => {
 
         event.preventDefault()
+        setErro("")
+
+        if(!email || !senha){
+            setErro("Preencha email e senha")
+            return
+        }
 
         try{
 
@@ -24,20 +30,21 @@ export default function Login(){
                 senha
             })
 
-            const token = res.data.token
-
-            login(token)
+            localStorage.setItem("token",res.data.token)
 
             router.push("/dashboard")
 
         }catch(err){
 
-            console.log(err)
-            alert("Erro no login")
+            if(err.response?.data?.error){
+                setErro(err.response.data.error)
+            }else{
+                setErro("Erro ao realizar login")
+            }
 
         }
 
-    }
+}
 
     return(
 
@@ -61,6 +68,11 @@ export default function Login(){
                 type="password"
                 className="w-full border p-2 mb-4 rounded"
                 placeholder="Senha"
+                onKeyDown={(e)=>{
+                    if(e.key === " "){
+                        e.preventDefault()
+                    }
+                }}
                 onChange={(e)=>setSenha(e.target.value)}
                 />
 
