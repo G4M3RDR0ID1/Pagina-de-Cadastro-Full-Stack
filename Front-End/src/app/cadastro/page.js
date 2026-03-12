@@ -10,30 +10,35 @@ export default function Cadastro(){
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState("")
     const [telefone,setTelefone] = useState("")
+    const [erro, setErro] = useState("")
     const router = useRouter()
+    
 
     const cadastrar = async (event) => {
 
         event.preventDefault()
+        setErro("")
 
         try {
 
-            const res = await api.post("/usuarios",{
+            await api.post("/usuarios",{
                 nome,
                 email,
                 senha,
                 telefone
             })
-
-            console.log(res.data)
+            
 
             alert("Usuário cadastrado com sucesso!")
             router.push("/login")
 
         } catch (err) {
 
-            console.log(err)
-            alert("Erro ao cadastrar usuário")
+            if(err.response?.data){
+                setErro(err.response.data)
+            } else {
+                setErro("Erro ao cadastrar usuário")
+            }
 
         }
 
@@ -51,6 +56,12 @@ export default function Cadastro(){
                     Cadastro
                 </h1>
 
+                {erro && (
+                    <p className="bg-red-100 text-red-700 p-2 rounded text-center">
+                        {erro}
+                    </p>
+                )}
+                
                 <input
                 className="w-full border p-2 mb-3 rounded"
                 placeholder="Nome"
