@@ -10,7 +10,8 @@ public class UsuarioDTO {
     private String email;
     private String senha;
 
-    public UsuarioDTO() {}
+    public UsuarioDTO() {
+    }
 
     public UsuarioDTO(String nome, String email, String senha) {
         this.nome = nome;

@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "usuario",
-uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+        uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class Usuario {
 
     //Classe que representa o Objeto usuario, e tambem a tabela Usuario no banco de dados mysql.

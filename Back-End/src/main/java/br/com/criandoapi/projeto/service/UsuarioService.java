@@ -6,7 +6,6 @@ import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.repository.IUsuario;
 import br.com.criandoapi.projeto.security.Token;
 import br.com.criandoapi.projeto.security.TokenUtil;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +27,12 @@ public class UsuarioService {
     public Usuario criarUsuario(Usuario usuario) {
 
         // verifica se já existe usuário com esse email
-        if(repository.findByEmail(usuario.getEmail()) != null){
+        if (repository.findByEmail(usuario.getEmail()) != null) {
             throw new RuntimeException("Email já cadastrado");
         }
 
         // valida senha
-        if(usuario.getSenha() == null || usuario.getSenha().isBlank()){
+        if (usuario.getSenha() == null || usuario.getSenha().isBlank()) {
             throw new RuntimeException("Senha é obrigatória");
         }
 
@@ -65,13 +64,13 @@ public class UsuarioService {
 
         Usuario user = repository.findByEmail(usuario.getEmail());
 
-        if(user == null){
+        if (user == null) {
             throw new RuntimeException("Email não encontrado");
         }
 
         boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getSenha());
 
-        if(!valid){
+        if (!valid) {
             throw new RuntimeException("Senha incorreta");
         }
 
