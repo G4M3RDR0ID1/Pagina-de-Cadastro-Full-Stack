@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { api } from "@/services/api"
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
+import { jwtDecode } from "jwt-decode"
 
 export default function Dashboard(){
 
@@ -13,7 +14,12 @@ export default function Dashboard(){
 
     const router = useRouter()
 
-    
+    let nomeUsuario = ""
+
+    if(token){
+        const decoded = jwtDecode(token.replace("Bearer ",""))
+        nomeUsuario = decoded.sub
+    }
 
     useEffect(()=>{
 
@@ -32,7 +38,9 @@ export default function Dashboard(){
 
         <div>
 
-            <h1>Usuários</h1>
+            <h1>Dashboard</h1>
+
+            <h2>Usuario: {nomeUsuario} </h2>
 
             <button onClick={()=>{
                 logout()
@@ -40,6 +48,8 @@ export default function Dashboard(){
             }}>
                 Logout
             </button>
+            
+            <h3>Usuários cadastrados</h3>
 
             {usuarios.map(u=>(
                 <p key={u.id}>
