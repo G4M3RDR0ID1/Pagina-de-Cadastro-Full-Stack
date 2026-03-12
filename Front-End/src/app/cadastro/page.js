@@ -25,7 +25,7 @@ export default function Cadastro(){
                 nome,
                 email,
                 senha,
-                telefone
+                telefone: telefone.replace(/\D/g,"")
             })
             
 
@@ -56,6 +56,19 @@ export default function Cadastro(){
         }
 
     }
+
+
+    const formatarTelefone = (valor) => {
+
+    valor = valor.replace(/\D/g, "") 
+
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2")
+
+    valor = valor.replace(/(\d{4,5})(\d{4})$/, "$1-$2")
+
+    return valor
+
+}
 
     return(
 
@@ -91,13 +104,16 @@ export default function Cadastro(){
                 type="password"
                 className="w-full border p-2 mb-3 rounded"
                 placeholder="Senha"
-                onChange={(e)=>setSenha(e.target.value)}
+                onChange={(e)=>{
+                    const valor = e.target.value.replace(/\s/g, "")
+                    setSenha(valor)
+                }}
                 />
 
                 <input
                 className="w-full border p-2 mb-4 rounded"
                 placeholder="Telefone"
-                onChange={(e)=>setTelefone(e.target.value)}
+                onChange={(e)=>setTelefone(formatarTelefone(e.target.value))}
                 />
 
                 <button
