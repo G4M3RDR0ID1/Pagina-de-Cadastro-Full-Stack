@@ -72,11 +72,10 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public ResponseEntity<Token> logar(@RequestBody UsuarioDTO usuario) {
+
         Token token = usuarioService.gerarToken(usuario);
-        if (token != null) {
-            return ResponseEntity.ok(token);
-        }
-        return ResponseEntity.status(403).build();
+
+        return ResponseEntity.ok(token);
     }
 
 }
