@@ -11,6 +11,8 @@ export default function Login(){
 
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState("")
+    const [erro,setErro] = useState("")
+
     const router = useRouter()
 
     const logar = async (event) => {
@@ -18,6 +20,7 @@ export default function Login(){
         event.preventDefault()
         setErro("")
 
+        // validação frontend
         if(!email || !senha){
             setErro("Preencha email e senha")
             return
@@ -30,7 +33,8 @@ export default function Login(){
                 senha
             })
 
-            localStorage.setItem("token",res.data.token)
+            // salva token no contexto
+            login(res.data.token)
 
             router.push("/dashboard")
 
@@ -44,7 +48,7 @@ export default function Login(){
 
         }
 
-}
+    }
 
     return(
 
@@ -54,19 +58,25 @@ export default function Login(){
             onSubmit={logar}
             className="bg-white p-8 rounded-lg shadow-md w-80 space-y-3">
 
-                <h1 className="text-2xl font-bold mb-6 text-center">
+                <h1 className="text-2xl font-bold mb-4 text-center">
                     Login
                 </h1>
 
+                {erro && (
+                    <p className="bg-red-100 text-red-700 p-2 rounded text-center">
+                        {erro}
+                    </p>
+                )}
+
                 <input
-                className="w-full border p-2 mb-3 rounded"
+                className="w-full border p-2 rounded"
                 placeholder="Email"
                 onChange={(e)=>setEmail(e.target.value)}
                 />
 
                 <input
                 type="password"
-                className="w-full border p-2 mb-4 rounded"
+                className="w-full border p-2 rounded"
                 placeholder="Senha"
                 onKeyDown={(e)=>{
                     if(e.key === " "){
@@ -80,12 +90,12 @@ export default function Login(){
                 className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-200">
                     Entrar
                 </button>
-                
+
                 <button
                 type="button"
                 className="w-full bg-gray-500 text-white p-2 rounded hover:bg-gray-600 transition duration-200"
                 onClick={() => router.push("/")}>
-                Voltar para Home
+                    Voltar para Home
                 </button>
 
             </form>
