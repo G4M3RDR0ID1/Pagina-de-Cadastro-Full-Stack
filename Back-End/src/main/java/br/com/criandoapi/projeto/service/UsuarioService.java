@@ -65,16 +65,17 @@ public class UsuarioService {
 
         Usuario user = repository.findByEmail(usuario.getEmail());
 
-        if (user != null) {
-
-            boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getSenha());
-
-            if (valid) {
-                return new Token(tokenUtil.createToken(user));
-            }
+        if(user == null){
+            throw new RuntimeException("Email não encontrado");
         }
 
-        return null;
+        boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getSenha());
+
+        if(!valid){
+            throw new RuntimeException("Senha incorreta");
+        }
+
+        return new Token(tokenUtil.createToken(user));
     }
 
     public List<UsuarioResponseDTO> listarUsuarios() {
