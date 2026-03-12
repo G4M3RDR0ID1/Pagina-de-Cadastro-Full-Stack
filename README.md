@@ -40,7 +40,7 @@ Um pequeno frontend em **Next.js** foi desenvolvido apenas para consumir a API e
 
 ---
 
-# 🧠 Arquitetura do Backend
+# Arquitetura do Backend
 
 O backend segue uma arquitetura em camadas:
 
@@ -165,11 +165,11 @@ Aplicação disponível em: **http://localhost:3000**
 
 Este projeto foi desenvolvido com foco em demonstrar conhecimentos em:
 
-- ✅ Desenvolvimento de APIs REST com Spring Boot
-- ✅ Autenticação segura com JWT
-- ✅ Spring Security
-- ✅ Arquitetura Backend
-- ✅ Integração com banco de dados relacional
+- Desenvolvimento de APIs REST com Spring Boot
+- Autenticação segura com JWT
+- Spring Security
+- Arquitetura Backend
+- Integração com banco de dados relacional
 
 ---
 
