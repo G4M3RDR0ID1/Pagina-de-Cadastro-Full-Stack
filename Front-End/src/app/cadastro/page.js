@@ -104,10 +104,12 @@ export default function Cadastro(){
                 type="password"
                 className="w-full border p-2 mb-3 rounded"
                 placeholder="Senha"
-                onChange={(e)=>{
-                    const valor = e.target.value.replace(/\s/g, "")
-                    setSenha(valor)
+                onKeyDown={(e) => {
+                if (e.key === " ") {
+                    e.preventDefault()
+                }
                 }}
+                onChange={(e)=>setSenha(e.target.value)}
                 />
 
                 <input
