@@ -30,7 +30,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://pagina-de-cadastro-full-stack.vercel.app"
         ));
 
         config.setAllowedMethods(List.of(
