@@ -28,6 +28,7 @@ export default function Cadastro(){
             console.log(res.data)
 
             alert("Usuário cadastrado com sucesso!")
+            router.push("/login")
 
         } catch (err) {
 
