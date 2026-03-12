@@ -115,6 +115,7 @@ export default function Cadastro(){
                 <input
                 className="w-full border p-2 mb-4 rounded"
                 placeholder="Telefone"
+                value={telefone}
                 onChange={(e)=>setTelefone(formatarTelefone(e.target.value))}
                 />
 
