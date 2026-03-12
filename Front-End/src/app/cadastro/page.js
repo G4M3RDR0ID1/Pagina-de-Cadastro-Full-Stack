@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { api } from "@/services/api"
+import { useRouter } from "next/navigation"
 
 export default function Cadastro(){
 
@@ -9,6 +10,7 @@ export default function Cadastro(){
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState("")
     const [telefone,setTelefone] = useState("")
+    const router = useRouter()
 
     const cadastrar = async (event) => {
 
@@ -38,34 +40,52 @@ export default function Cadastro(){
 
     return(
 
-        <div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
-            <h1>Cadastro</h1>
+            <form
+            onSubmit={cadastrar}
+            className="bg-white p-8 rounded-lg shadow-md w-80 space-y-3">
 
-            <form onSubmit={cadastrar}>
+                <h1 className="text-2xl font-bold mb-6 text-center">
+                    Cadastro
+                </h1>
 
                 <input
-                    placeholder="Nome"
-                    onChange={(e)=>setNome(e.target.value)}
+                className="w-full border p-2 mb-3 rounded"
+                placeholder="Nome"
+                onChange={(e)=>setNome(e.target.value)}
                 />
 
                 <input
-                    placeholder="Email"
-                    onChange={(e)=>setEmail(e.target.value)}
+                className="w-full border p-2 mb-3 rounded"
+                placeholder="Email"
+                onChange={(e)=>setEmail(e.target.value)}
                 />
 
                 <input
-                    type="password"
-                    placeholder="Senha"
-                    onChange={(e)=>setSenha(e.target.value)}
+                type="password"
+                className="w-full border p-2 mb-3 rounded"
+                placeholder="Senha"
+                onChange={(e)=>setSenha(e.target.value)}
                 />
 
                 <input
-                    placeholder="Telefone"
-                    onChange={(e)=>setTelefone(e.target.value)}
+                className="w-full border p-2 mb-4 rounded"
+                placeholder="Telefone"
+                onChange={(e)=>setTelefone(e.target.value)}
                 />
 
-                <button type="submit">Cadastrar</button>
+                <button
+                className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition duration-200">
+                    Cadastrar
+                </button>
+
+                <button
+                type="button"
+                className="w-full bg-gray-500 text-white p-2 rounded hover:bg-gray-600 transition duration-200"
+                onClick={() => router.push("/")}>
+                Voltar para Home
+                </button>
 
             </form>
 

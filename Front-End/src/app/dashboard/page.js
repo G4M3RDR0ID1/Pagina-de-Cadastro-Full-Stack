@@ -24,7 +24,7 @@ export default function Dashboard(){
     useEffect(()=>{
 
         if(!token){
-            router.push("/login")
+            router.push("/")
             return
         }
 
@@ -36,26 +36,60 @@ export default function Dashboard(){
 
     return(
 
-        <div>
+        <div className="min-h-screen bg-gray-100">
 
-            <h1>Dashboard</h1>
+            {/* NAVBAR */}
 
-            <h2>Usuario: {nomeUsuario} </h2>
+            <div className="flex justify-between items-center bg-blue-600 text-white p-4">
 
-            <button onClick={()=>{
-                logout()
-                router.push("/login")
-            }}>
-                Logout
-            </button>
-            
-            <h3>Usuários cadastrados</h3>
+                <h1 className="text-xl font-bold">
+                    Sistema de Usuários
+                </h1>
 
-            {usuarios.map(u=>(
-                <p key={u.id}>
-                    {u.nome} - {u.email}
-                </p>
-            ))}
+                <button
+                className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+                onClick={()=>{
+                    logout()
+                    router.push("/")
+                }}>
+                    Logout
+                </button>
+
+            </div>
+
+            {/* CONTEÚDO */}
+
+            <div className="max-w-4xl mx-auto mt-10">
+
+                <h2 className="text-2xl font-bold mb-6">
+                    Olá {nomeUsuario} 👋
+                </h2>
+
+                <h3 className="text-lg font-semibold mb-4">
+                    Lista de Usuários
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    {usuarios.map(u=>(
+                        <div
+                        key={u.id}
+                        className="bg-white p-4 rounded-lg shadow">
+
+                            <h4 className="font-bold text-lg">
+                                {u.nome}
+                            </h4>
+
+                            <p className="text-gray-600">
+                                {u.email}
+                            </p>
+
+                        </div>
+                    ))}
+
+                </div>
+
+            </div>
 
         </div>
 

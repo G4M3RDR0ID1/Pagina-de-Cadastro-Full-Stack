@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { api } from "@/services/api"
 import { useAuth } from "@/context/AuthContext"
@@ -41,24 +42,40 @@ export default function Login(){
 
     return(
 
-        <div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
-            <h1>Login</h1>
+            <form
+            onSubmit={logar}
+            className="bg-white p-8 rounded-lg shadow-md w-80 space-y-3">
 
-            <form onSubmit={logar}>
+                <h1 className="text-2xl font-bold mb-6 text-center">
+                    Login
+                </h1>
 
                 <input
-                    placeholder="Email"
-                    onChange={(e)=>setEmail(e.target.value)}
+                className="w-full border p-2 mb-3 rounded"
+                placeholder="Email"
+                onChange={(e)=>setEmail(e.target.value)}
                 />
 
                 <input
-                    type="password"
-                    placeholder="Senha"
-                    onChange={(e)=>setSenha(e.target.value)}
+                type="password"
+                className="w-full border p-2 mb-4 rounded"
+                placeholder="Senha"
+                onChange={(e)=>setSenha(e.target.value)}
                 />
 
-                <button type="submit">Entrar</button>
+                <button
+                className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-200">
+                    Entrar
+                </button>
+                
+                <button
+                type="button"
+                className="w-full bg-gray-500 text-white p-2 rounded hover:bg-gray-600 transition duration-200"
+                onClick={() => router.push("/")}>
+                Voltar para Home
+                </button>
 
             </form>
 
