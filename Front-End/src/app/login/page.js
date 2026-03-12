@@ -40,9 +40,13 @@ export default function Login(){
 
         }catch(err){
 
-            if(err.response?.data?.error){
+            if(err.response?.data?.message){
+                setErro(err.response.data.message)
+            }
+            else if(err.response?.data?.error){
                 setErro(err.response.data.error)
-            }else{
+            }
+            else{
                 setErro("Erro ao realizar login")
             }
 
