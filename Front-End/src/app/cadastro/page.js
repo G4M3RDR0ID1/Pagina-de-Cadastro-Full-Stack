@@ -34,10 +34,23 @@ export default function Cadastro(){
 
         } catch (err) {
 
-            if(err.response?.data){
-                setErro(err.response.data)
+            if (err.response?.data) {
+
+                const data = err.response.data
+
+                if (typeof data === "string") {
+                    setErro(data)
+                }
+
+                else if (typeof data === "object") {
+                    const mensagens = Object.values(data).join(" | ")
+                    setErro(mensagens)
+                }
+
             } else {
-                setErro("Erro ao cadastrar usuário")
+
+               setErro("Erro ao cadastrar usuário")
+
             }
 
         }
