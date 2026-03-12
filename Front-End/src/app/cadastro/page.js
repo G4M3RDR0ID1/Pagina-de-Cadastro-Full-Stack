@@ -118,7 +118,7 @@ export default function Cadastro(){
                 value={telefone}
                 onChange={(e)=>setTelefone(formatarTelefone(e.target.value))}
                 />
-
+                
                 <button
                 className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition duration-200">
                     Cadastrar
