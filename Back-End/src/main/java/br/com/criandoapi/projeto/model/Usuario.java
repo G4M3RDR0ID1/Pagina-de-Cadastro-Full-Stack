@@ -7,7 +7,8 @@ import lombok.Data;
 //Anotação utilizada para utilizar get e set sem a necessidade de estarem no codigo.
 @Data
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario",
+uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class Usuario {
 
     //Classe que representa o Objeto usuario, e tambem a tabela Usuario no banco de dados mysql.
@@ -25,7 +26,7 @@ public class Usuario {
 
     @Email(message = "Insira um email valido!")
     @NotBlank(message = "O email é obrigatório!")
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
 
     @NotBlank(message = "A senha é obrigatório!")

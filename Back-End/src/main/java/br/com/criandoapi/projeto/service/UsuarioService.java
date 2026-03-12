@@ -26,6 +26,12 @@ public class UsuarioService {
     }
 
     public Usuario criarUsuario(Usuario usuario) {
+
+        // verifica se já existe usuário com esse email
+        if(repository.findByEmail(usuario.getEmail()) != null){
+            throw new RuntimeException("Email já cadastrado");
+        }
+
         String encoder = this.passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(encoder);
         Usuario usuarioNovo = repository.save(usuario);
