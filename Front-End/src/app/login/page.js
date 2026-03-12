@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useState } from "react"
 import { api } from "@/services/api"
 import { useAuth } from "@/context/AuthContext"
