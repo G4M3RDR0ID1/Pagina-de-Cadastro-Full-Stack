@@ -32,6 +32,11 @@ public class UsuarioService {
             throw new RuntimeException("Email já cadastrado");
         }
 
+        // valida senha
+        if(usuario.getSenha() == null || usuario.getSenha().isBlank()){
+            throw new RuntimeException("Senha é obrigatória");
+        }
+
         String encoder = this.passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(encoder);
         Usuario usuarioNovo = repository.save(usuario);

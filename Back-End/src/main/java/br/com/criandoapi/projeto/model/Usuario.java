@@ -30,10 +30,13 @@ public class Usuario {
     private String email;
 
     @NotBlank(message = "A senha é obrigatório!")
+    @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
     @Column(name = "senha", columnDefinition = "TEXT", nullable = false)
     private String senha;
 
     @NotBlank(message = "O telefone é obrigatório!")
+    @Size(min = 10, max = 15, message = "O telefone deve ter entre 10 e 15 caracteres")
+    @Pattern(regexp = "^[0-9]+$", message = "O telefone deve conter apenas números")
     @Column(name = "telefone", length = 15, nullable = false)
     private String telefone;
 
