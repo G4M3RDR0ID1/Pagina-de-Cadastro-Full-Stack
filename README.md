@@ -17,11 +17,11 @@ Aplicação Full Stack com foco no Back-end, desenvolvida para demonstrar boas p
 * Integração com frontend moderno
 
 ## Aplicação Online
-- Front-end
+Front-end
 
 https://pagina-de-cadastro-full-stack.vercel.app/login
 
-- Back-end API
+Back-end API
 
 https://pagina-de-cadastro-full-stack-production.up.railway.app
 
@@ -46,8 +46,8 @@ Ele demonstra habilidades importantes para vagas de Back-end Java / Full Stack, 
 ## Arquitetura do Sistema
 ```mermaid
 flowchart TD
-    A[Frontend (Next.js)] -->|"HTTP Requests"| B[Backend (Spring Boot API)]
-    B -->|"JPA / Hibernate"| C[MySQL Database]
+    A["Frontend (Next.js)"] -->|"HTTP Requests"| B["Backend (Spring Boot API)"]
+    B -->|"JPA / Hibernate"| C["MySQL Database"]
 ```
 ## Tecnologias Utilizadas
 ### Backend
@@ -82,14 +82,14 @@ flowchart TD
 * Frontend armazena token e controla sessão
 
 ### Cadastro de Usuário
-- Campos:
+Campos:
   
 * Nome
 * Email
 * Senha (criptografada)
 * Telefone
 
-- Validações:
+Validações:
   
 * Nome mínimo de 3 caracteres
 * Email válido
@@ -98,7 +98,7 @@ flowchart TD
 * Email único no sistema
 
 ### Segurança
-- Implementado com Spring Security:
+Implementado com Spring Security:
 
 * Autenticação baseada em JWT
 * Filtro de autenticação customizado
@@ -106,9 +106,9 @@ flowchart TD
 * Sessão stateless
 
 ### Tratamento Global de Erros
-- Utilizando: @RestControllerAdvice
+Utilizando: @RestControllerAdvice
 
-- Tratamento de:
+Tratamento de:
 
 * Erros de validação
 * Erros de negócio
