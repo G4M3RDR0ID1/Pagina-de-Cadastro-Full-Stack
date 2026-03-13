@@ -4,24 +4,24 @@ Aplicação Full Stack com foco no Back-end, desenvolvida para demonstrar boas p
 
 ### O sistema permite:
 
-Cadastro de usuários
+* Cadastro de usuários
 
-Autenticação segura
+* Autenticação segura
 
-Listagem de usuários autenticados
+* Listagem de usuários autenticados
 
-Proteção de rotas com JWT
+* Proteção de rotas com JWT
 
-Validação completa de dados
+* Validação completa de dados
 
-Integração com frontend moderno
+* Integração com frontend moderno
 
 ## Aplicação Online
-Front-end
+- Front-end
 
 https://pagina-de-cadastro-full-stack.vercel.app/login
 
-Back-end API
+- Back-end API
 
 https://pagina-de-cadastro-full-stack-production.up.railway.app
 
@@ -46,8 +46,8 @@ Ele demonstra habilidades importantes para vagas de Back-end Java / Full Stack, 
 ## Arquitetura do Sistema
 ```mermaid
 flowchart TD
-    A[Frontend (Next.js)] -->|HTTP Requests| B[Backend (Spring Boot API)]
-    B -->|JPA / Hibernate| C[MySQL Database]
+    A[Frontend (Next.js)] -->|"HTTP Requests"| B[Backend (Spring Boot API)]
+    B -->|"JPA / Hibernate"| C[MySQL Database]
 ```
 ## Tecnologias Utilizadas
 ### Backend
@@ -83,12 +83,14 @@ flowchart TD
 
 ### Cadastro de Usuário
 - Campos:
+  
 * Nome
 * Email
 * Senha (criptografada)
 * Telefone
 
 - Validações:
+  
 * Nome mínimo de 3 caracteres
 * Email válido
 * Senha mínimo 6 caracteres
@@ -104,9 +106,7 @@ flowchart TD
 * Sessão stateless
 
 ### Tratamento Global de Erros
-- Utilizando:
-
-@RestControllerAdvice
+- Utilizando: @RestControllerAdvice
 
 - Tratamento de:
 
@@ -196,23 +196,19 @@ GET /usuarios
 ```
 Authorization: Bearer TOKEN
 ```
-Funcionalidades do Frontend
+## Funcionalidades do Frontend
 
-Tela de Cadastro
+* Tela de Cadastro
 
-Tela de Login
+* Tela de Login
 
-Dashboard protegido
+* Dashboard protegido
 
-Integração com API via Axios
+* Integração com API via Axios
 
-Controle de autenticação com AuthContext
+* Controle de autenticação com AuthContext
 
-Máscara automática para telefone
-
-Validação de formulário
-
-Mensagens de erro amigáveis
+* Validação de formulário
 
 ## Instalação do Projeto
 
@@ -246,7 +242,7 @@ jwt.issuer=LucasLana
 ```
 ## Melhorias Futuras
 
-- Possíveis evoluções do projeto:
+Possíveis evoluções do projeto:
 
 * Documentação da API com Swagger
 * Dockerização da aplicação
@@ -257,7 +253,7 @@ jwt.issuer=LucasLana
 
 ## Autor
 
-Lucas Lana
+*Lucas Lana*
 
 GitHub
 https://github.com/G4M3RDR0ID1
@@ -266,15 +262,15 @@ https://github.com/G4M3RDR0ID1
 
 Este projeto foi desenvolvido com foco em boas práticas de backend, incluindo:
 
-arquitetura organizada
+* arquitetura organizada
 
-segurança
+* segurança
 
-validação de dados
+* validação de dados
 
-tratamento de erros
+* tratamento de erros
 
-autenticação moderna
+* autenticação moderna
 
 Servindo como demonstração prática de habilidades para vagas de Desenvolvedor Back-end / Full Stack Java.
 
