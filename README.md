@@ -2,7 +2,7 @@
 
 Aplicação Full Stack com foco no Back-end, desenvolvida para demonstrar boas práticas de desenvolvimento de APIs modernas, incluindo autenticação com JWT, validação de dados, tratamento global de erros e integração com Front-end em Next.js.
 
-O sistema permite:
+### O sistema permite:
 
 Cadastro de usuários
 
@@ -15,8 +15,6 @@ Proteção de rotas com JWT
 Validação completa de dados
 
 Integração com frontend moderno
-
-Deploy em produção
 
 ## Aplicação Online
 Front-end
@@ -33,129 +31,88 @@ Este projeto foi desenvolvido com foco em Back-end, simulando um sistema real de
 
 Ele demonstra habilidades importantes para vagas de Back-end Java / Full Stack, incluindo:
 
-Arquitetura REST
+* Arquitetura REST
 
-Autenticação com JWT
+* Autenticação com JWT
 
-Segurança com Spring Security
+* Segurança com Spring Security
 
-Validação de dados
+* Validação de dados
 
-Tratamento global de erros
+* Tratamento global de erros
 
-Integração Front-end / Back-end
-
-Deploy em produção
+* Integração Front-end / Back-end
 
 ## Arquitetura do Sistema
-Frontend (Next.js)
-        │
-        │ HTTP Requests
-        ▼
-Backend (Spring Boot API)
-        │
-        │ JPA / Hibernate
-        ▼
-MySQL Database
+```mermaid
+flowchart TD
+    A[Frontend (Next.js)] -->|HTTP Requests| B[Backend (Spring Boot API)]
+    B -->|JPA / Hibernate| C[MySQL Database]
+```
 ## Tecnologias Utilizadas
 ### Backend
 
-Java 17
+* Java 17
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* Hibernate
+* JWT (JSON Web Token)
+* MySQL
+* Maven
 
-Spring Boot
+### Frontend
 
-Spring Security
+* Next.js
+* React
+* Axios
+* Tailwind CSS
 
-Spring Data JPA
+### Deploy
 
-Hibernate
-
-JWT (JSON Web Token)
-
-Bean Validation
-
-MySQL
-
-Maven
-
-Frontend
-
-Next.js
-
-React
-
-Axios
-
-Tailwind CSS
-
-Deploy
-
-Railway → Backend
-
-Vercel → Frontend
-
-MySQL Cloud (Railway) → Banco de dados
+* Railway → Backend
+* Vercel → Frontend
+* MySQL Cloud (Railway) → Banco de dados
 
 ## Funcionalidades Implementadas
-Autenticação
+### Autenticação
 
-Login com JWT
+* Login com JWT
+* Rotas protegidas no backend
+* Frontend armazena token e controla sessão
 
-Token enviado no Authorization Header
+### Cadastro de Usuário
+- Campos:
+* Nome
+* Email
+* Senha (criptografada)
+* Telefone
 
-Rotas protegidas no backend
+- Validações:
+* Nome mínimo de 3 caracteres
+* Email válido
+* Senha mínimo 6 caracteres
+* Telefone válido
+* Email único no sistema
 
-Frontend armazena token e controla sessão
+### Segurança
+- Implementado com Spring Security:
 
-Cadastro de Usuário
+* Autenticação baseada em JWT
+* Filtro de autenticação customizado
+* Rotas protegidas
+* Sessão stateless
 
-Campos:
-
-Nome
-
-Email
-
-Senha (criptografada)
-
-Telefone
-
-Validações:
-
-Nome mínimo de 3 caracteres
-
-Email válido
-
-Senha mínimo 6 caracteres
-
-Telefone válido
-
-Email único no sistema
-
-Segurança
-
-Implementado com Spring Security:
-
-Autenticação baseada em JWT
-
-Filtro de autenticação customizado
-
-Rotas protegidas
-
-Sessão stateless
-
-Tratamento Global de Erros
-
-Utilizando:
+### Tratamento Global de Erros
+- Utilizando:
 
 @RestControllerAdvice
 
-Tratamento de:
+- Tratamento de:
 
-Erros de validação
-
-Erros de negócio
-
-Erros inesperados
+* Erros de validação
+* Erros de negócio
+* Erros inesperados
 
 **Exemplo de resposta da API:**
 
@@ -195,7 +152,7 @@ Src/Main
  └── model
        └── Usuario
 ```
-Endpoints da API
+## Endpoints da API
 ### Cadastro
 
 POST /usuarios
@@ -274,7 +231,7 @@ cd Front-End
 npm install
 npm run dev
 ```
-## ⚙ Configuração de Ambiente
+## Configuração de Ambiente
 
 ### Arquivo application.properties
 
@@ -287,23 +244,18 @@ jwt.secret=sua_chave_secreta
 jwt.expiration=43200000
 jwt.issuer=LucasLana
 ```
-Melhorias Futuras
+## Melhorias Futuras
 
-Possíveis evoluções do projeto:
+- Possíveis evoluções do projeto:
 
-Documentação da API com Swagger
+* Documentação da API com Swagger
+* Dockerização da aplicação
+* Refresh Token
+* Rate limiting no login
+* Testes automatizados
+* CI/CD pipeline
 
-Dockerização da aplicação
-
-Refresh Token
-
-Rate limiting no login
-
-Testes automatizados
-
-CI/CD pipeline
-
-Autor
+## Autor
 
 Lucas Lana
 
