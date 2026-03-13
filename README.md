@@ -1,178 +1,329 @@
-# API de Gerenciamento de Usuários (Spring Boot + JWT)
+# Sistema de Cadastro e Autenticação de Usuários (Full Stack)
 
-API REST desenvolvida com **Spring Boot** para gerenciamento de usuários com **autenticação segura utilizando JWT (JSON Web Token)**.
+Aplicação Full Stack com foco no Back-end, desenvolvida para demonstrar boas práticas de desenvolvimento de APIs modernas, incluindo autenticação com JWT, validação de dados, tratamento global de erros e integração com Front-end em Next.js.
 
-O projeto demonstra boas práticas de desenvolvimento backend, incluindo:
+O sistema permite:
 
-- Arquitetura em camadas
-- Autenticação stateless
-- Criptografia de senha com BCrypt
-- Proteção de rotas com Spring Security
-- Integração com banco de dados MySQL
+Cadastro de usuários
 
-Um pequeno frontend em **Next.js** foi desenvolvido apenas para consumir a API e demonstrar seu funcionamento.
+Autenticação segura
 
----
+Listagem de usuários autenticados
 
-# Tecnologias Utilizadas
+Proteção de rotas com JWT
 
-## Backend (principal)
+Validação completa de dados
 
-- Java 17
-- Spring Boot
-- Spring Security
-- JWT (JSON Web Token)
-- Spring Data JPA
-- Hibernate
-- BCrypt Password Encoder
-- Maven
+Integração com frontend moderno
 
-## Banco de Dados
+Deploy em produção
 
-- MySQL
+## Aplicação Online
+Front-end
 
-## Frontend (apenas para consumo da API)
+https://pagina-de-cadastro-full-stack.vercel.app/login
 
-- Next.js
-- React
-- Axios
-- TailwindCSS
+Back-end API
 
----
+https://pagina-de-cadastro-full-stack-production.up.railway.app
 
-# Arquitetura do Backend
+## Objetivo do Projeto
 
-O backend segue uma arquitetura em camadas:
+Este projeto foi desenvolvido com foco em Back-end, simulando um sistema real de autenticação utilizado em aplicações modernas.
 
-```
-src/main/java/br/com/criandoapi/projeto
-├── controller
-│   └─ Responsável pelas rotas da API
-├── service
-│   └─ Contém regras de negócio da aplicação
-├── repository
-│   └─ Comunicação com banco de dados (JPA)
-├── model
-│   └─ Entidades da aplicação
-├── dto
-│   └─ Objetos de transferência de dados
-└── security
-    ├─ Configuração do Spring Security
-    └─ Geração e validação de tokens JWT
-```
+Ele demonstra habilidades importantes para vagas de Back-end Java / Full Stack, incluindo:
 
+Arquitetura REST
 
----
+Autenticação com JWT
 
-# Autenticação
+Segurança com Spring Security
 
-A autenticação é realizada utilizando **JWT (JSON Web Token)**.
+Validação de dados
 
-**Fluxo de autenticação:**
+Tratamento global de erros
 
-```
-1. Cliente envia email e senha
-   ↓
-2. API valida credenciais
-   ↓
-3. API gera token JWT
-   ↓
-4. Cliente envia token no header Authorization
-   ↓
-5. Spring Security valida token
-```
+Integração Front-end / Back-end
 
-**Header utilizado:**
-```
-Authorization: Bearer TOKEN
-```
+Deploy em produção
 
+## Arquitetura do Sistema
+Frontend (Next.js)
+        │
+        │ HTTP Requests
+        ▼
+Backend (Spring Boot API)
+        │
+        │ JPA / Hibernate
+        ▼
+MySQL Database
+## Tecnologias Utilizadas
+### Backend
 
----
+Java 17
 
-# Endpoints da API
+Spring Boot
 
-## Criar usuário
+Spring Security
 
-**POST** `/usuarios`
+Spring Data JPA
 
-**Body:**
+Hibernate
+
+JWT (JSON Web Token)
+
+Bean Validation
+
+MySQL
+
+Maven
+
+Frontend
+
+Next.js
+
+React
+
+Axios
+
+Tailwind CSS
+
+Deploy
+
+Railway → Backend
+
+Vercel → Frontend
+
+MySQL Cloud (Railway) → Banco de dados
+
+## Funcionalidades Implementadas
+Autenticação
+
+Login com JWT
+
+Token enviado no Authorization Header
+
+Rotas protegidas no backend
+
+Frontend armazena token e controla sessão
+
+Cadastro de Usuário
+
+Campos:
+
+Nome
+
+Email
+
+Senha (criptografada)
+
+Telefone
+
+Validações:
+
+Nome mínimo de 3 caracteres
+
+Email válido
+
+Senha mínimo 6 caracteres
+
+Telefone válido
+
+Email único no sistema
+
+Segurança
+
+Implementado com Spring Security:
+
+Autenticação baseada em JWT
+
+Filtro de autenticação customizado
+
+Rotas protegidas
+
+Sessão stateless
+
+Tratamento Global de Erros
+
+Utilizando:
+
+@RestControllerAdvice
+
+Tratamento de:
+
+Erros de validação
+
+Erros de negócio
+
+Erros inesperados
+
+**Exemplo de resposta da API:**
+
 ```json
 {
-  "nome": "Lucas",
-  "email": "lucas@email.com",
-  "senha": "123456",
-  "telefone": "31999999999"
+ "error": "Erro interno no servidor",
+ "message": "Senha incorreta"
 }
 ```
+## Estrutura do Back-End
 
----
+```
+Src/Main
+ ├── ProjetoApplication.java
+ ├── controller
+ │     └── UsuarioController
+ │
+ ├── service
+ │     └── UsuarioService
+ │
+ ├── repository
+ │     └── IUsuario
+ │
+ ├── security
+ │     ├── SecurityConfig
+ │     ├── SecurityFilter
+ │     ├── Token
+ │     └── TokenUtil
+ │
+ ├── dto
+ │     ├── UsuarioDTO
+ │     └── UsuarioResponseDTO
+ │
+ ├── exception
+ │     └── GlobalExceptionHandler
+ │
+ └── model
+       └── Usuario
+```
+Endpoints da API
+### Cadastro
 
-## Login
-
-**POST** `/usuarios/login`
+POST /usuarios
 
 **Body:**
+
 ```json
 {
-  "email": "lucas@email.com",
-  "senha": "123456"
+ "nome": "Lucas",
+ "email": "lucas@email.com",
+ "senha": "123456",
+ "telefone": "31999999999"
+}
+```
+### Login
+
+POST /usuarios/login
+
+**Body:**
+
+```json
+{
+ "email": "lucas@email.com",
+ "senha": "123456"
 }
 ```
 
 **Resposta:**
+
 ```json
 {
-  "token": "Bearer eyJhbGciOiJIUzI1NiJ9..."
+ "token": "Bearer eyJhbGciOiJIUzI1NiJ9..."
 }
 ```
+### Listar usuários
 
----
-
-## Listar usuários (rota protegida)
-
-**GET** `/usuarios`
+GET /usuarios
 
 **Header:**
+
 ```
 Authorization: Bearer TOKEN
 ```
----
+Funcionalidades do Frontend
 
-# Como executar o projeto
+Tela de Cadastro
 
-## Backend
+Tela de Login
+
+Dashboard protegido
+
+Integração com API via Axios
+
+Controle de autenticação com AuthContext
+
+Máscara automática para telefone
+
+Validação de formulário
+
+Mensagens de erro amigáveis
+
+## Instalação do Projeto
+
+### Backend
 
 ```bash
+git clone https://github.com/G4M3RDR0ID1/Pagina-de-Cadastro-Full-Stack
 cd Back-End
 mvn spring-boot:run
 ```
 
-API disponível em: **http://localhost:8080**
-
-## Frontend
+### Frontend
 
 ```bash
 cd Front-End
 npm install
 npm run dev
 ```
+## ⚙ Configuração de Ambiente
 
-Aplicação disponível em: **http://localhost:3000**
----
+### Arquivo application.properties
 
-# Objetivo do Projeto
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/banco_de_usuarios
+spring.datasource.username=root
+spring.datasource.password=senha
 
-Este projeto foi desenvolvido com foco em demonstrar conhecimentos em:
+jwt.secret=sua_chave_secreta
+jwt.expiration=43200000
+jwt.issuer=LucasLana
+```
+Melhorias Futuras
 
-- Desenvolvimento de APIs REST com Spring Boot
-- Autenticação segura com JWT
-- Spring Security
-- Arquitetura Backend
-- Integração com banco de dados relacional
+Possíveis evoluções do projeto:
 
----
+Documentação da API com Swagger
 
-# Autor
+Dockerização da aplicação
 
-**Lucas Lana**
+Refresh Token
+
+Rate limiting no login
+
+Testes automatizados
+
+CI/CD pipeline
+
+Autor
+
+Lucas Lana
+
+GitHub
+https://github.com/G4M3RDR0ID1
+
+### Considerações
+
+Este projeto foi desenvolvido com foco em boas práticas de backend, incluindo:
+
+arquitetura organizada
+
+segurança
+
+validação de dados
+
+tratamento de erros
+
+autenticação moderna
+
+Servindo como demonstração prática de habilidades para vagas de Desenvolvedor Back-end / Full Stack Java.
+
+### Se este projeto foi útil ou interessante, considere deixar uma estrela no repositório.
